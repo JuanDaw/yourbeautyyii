@@ -10,9 +10,9 @@ use Yii;
  * @property int $id
  * @property string $nombre
  * @property string $password
- * @property string $auth_key
- * @property string $telefono
- * @property string $poblacion
+ *
+ * @property Patrocinados[] $patrocinados
+ * @property Productos[] $productos
  */
 class Usuarios extends \yii\db\ActiveRecord
 {
@@ -31,8 +31,9 @@ class Usuarios extends \yii\db\ActiveRecord
     {
         return [
             [['nombre', 'password'], 'required'],
-            [['nombre', 'auth_key', 'telefono', 'poblacion'], 'string', 'max' => 255],
+            [['nombre'], 'string', 'max' => 255],
             [['password'], 'string', 'max' => 60],
+            [['nombre'], 'unique'],
         ];
     }
 
@@ -45,9 +46,28 @@ class Usuarios extends \yii\db\ActiveRecord
             'id' => 'ID',
             'nombre' => 'Nombre',
             'password' => 'Password',
-            'auth_key' => 'Auth Key',
-            'telefono' => 'Teléfono',
-            'poblacion' => 'Población',
         ];
+    }
+
+    /**
+     * Gets query for [[Patrocinados]].
+     *
+     * @return \yii\db\ActiveQuery
+     */
+    public function getPatrocinados()
+    {
+        return $this->hasMany(Patrocinados::class, ['usuario_id' => 'id'])
+            ->inverseOf('usuario');
+    }
+
+    /**
+     * Gets query for [[Productos]].
+     *
+     * @return \yii\db\ActiveQuery
+     */
+    public function getProductos()
+    {
+        return $this->hasMany(Productos::class, ['id' => 'producto_id'])
+            ->viaTable('patrocinados', ['usuario_id' => 'id']);
     }
 }
