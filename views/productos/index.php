@@ -18,7 +18,7 @@ $this->params['breadcrumbs'][] = $this->title;
         <?= Html::a('Create Productos', ['create'], ['class' => 'btn btn-success']) ?>
     </p>
 
-    <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
+    <?php echo $this->render('_search', ['model' => $searchModel]); ?>
 
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
@@ -38,14 +38,15 @@ $this->params['breadcrumbs'][] = $this->title;
                 'template' => '{favorito}',
                 'buttons' => [
                     'favorito' => function ($url, $model, $key) {
-                        return Html::a('Añadir a favoritos', [
-                            'usuarios/favoritos',
-                            'id' => $key,
-                        ], 
-                        ['class' => 'btn-sm btn-danger']
-                        );
-                    },
-                ]
+                        return "TODO";
+                        // return Html::a('Añadir a favoritos', [
+                        //     'usuarios/favoritos',
+                        //     'id' => $key,
+                        // ], 
+                        // ['class' => 'btn-sm btn-danger']
+                        // );
+                    }
+                ],
             ],
         ],
     ]); ?>
