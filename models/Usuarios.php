@@ -31,9 +31,9 @@ class Usuarios extends \yii\db\ActiveRecord
     {
         return [
             [['nombre', 'password'], 'required'],
+            [['nombre'], 'unique'],
             [['nombre'], 'string', 'max' => 255],
             [['password'], 'string', 'max' => 60],
-            [['nombre'], 'unique'],
         ];
     }
 
@@ -69,5 +69,43 @@ class Usuarios extends \yii\db\ActiveRecord
     {
         return $this->hasMany(Productos::class, ['id' => 'producto_id'])
             ->viaTable('patrocinados', ['usuario_id' => 'id']);
+    }
+
+    public static function findIdentity($id)
+    {
+        return static::findOne($id);
+    }
+
+    public static function findByUsername($username)
+    {
+        return static::findOne(['nombre' => $username]);
+    }
+
+    public static function findIdentityByAccessToken($token, $type = null)
+    {
+        
+    }
+
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    public function getAuthKey()
+    {
+    
+    }
+
+    public function validateAuthKey($authKey)
+    {
+    
+    }
+
+    public function validatePassword($password)
+    {
+        return Yii::$app->security->validatePassword(
+            $password,
+            $this->password
+        );
     }
 }

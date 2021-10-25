@@ -35,3 +35,6 @@ CREATE TABLE patrocinados (
   , producto_id bigint REFERENCES productos(id)
   , PRIMARY KEY (usuario_id, producto_id)
 );
+
+INSERT INTO usuarios (nombre, password)
+VALUES ('juan', 'juan')
