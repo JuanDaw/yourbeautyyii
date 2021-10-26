@@ -36,5 +36,7 @@ CREATE TABLE patrocinados (
   , PRIMARY KEY (usuario_id, producto_id)
 );
 
+CREATE EXTENSION pgcrypto;
+
 INSERT INTO usuarios (nombre, password)
-VALUES ('juan', 'juan')
+VALUES ('juan', crypt('juan', gen_salt('bf')))
